@@ -10,17 +10,15 @@ CREATE TABLE projets (
 );
 
 CREATE TABLE employe(
-	id int auto_increment primary key,
+    id int auto_increment primary key,
     nom varchar(255),
     mail varchar(255),
     equipe varchar(255),
-    nom_projet varchar(255),
-    projet int,
-    foreign key (projet) references projets(id)
+    nom_projet varchar(255)
     );
 
 CREATE TABLE projets_employe(
-	id int auto_increment primary key,
+    id int auto_increment primary key,
     projet_id int,
     employe_id int,
     foreign key (projet_id) references projet(id),
