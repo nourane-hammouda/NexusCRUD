@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /projet/public/
+
+# Si le fichier ou le dossier n'existe pas, rediriger vers router.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ router.php?url=$1 [QSA,L] 

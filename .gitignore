@@ -1,0 +1,85 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Cache
+*.cache
+cache/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Database
+*.sqlite
+*.sqlite3
+
+# XAMPP specific
+xampp/
+htdocs/
+apache/
+mysql/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Composer
+composer.lock
+composer.phar
+
+# Composer
+/phpunit.xml
+/tests/coverage/
+
+# Local configuration
+config/local.php
+config/local.ini
+
+# Fichiers de configuration sensibles
+config/config.php
+
+# Fichiers de l'IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Fichiers de cache
+*.cache
+*.log
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de dépendances
+vendor/
+node_modules/
+
+# Fichiers de base de données
+*.sql
+*.sqlite
+*.db 

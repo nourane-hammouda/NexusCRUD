@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /projet/
+
+# Définir le fichier index par défaut
+DirectoryIndex public/home.php
+
+# Si le fichier ou répertoire n'existe pas, rediriger vers home.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/home.php [QSA,L]
