@@ -23,7 +23,7 @@ Un système de gestion de projets complet développé en PHP avec une architectu
 
 1. Clonez le dépôt :
 ```bash
-git clone https://github.com/votre-username/nom-du-projet.git
+git clone https://github.com/nourane-hammouda/NexusCRUD.git
 cd NexusCRUD 
 ```
 
@@ -92,6 +92,6 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## Contact
 
-Votre Nom - [@votre-twitter](https://twitter.com/votre-twitter) - email@example.com
+Nourane HAMMOUDA - nouranehamouda09@gmail@.com
 
-Lien du projet: [https://github.com/votre-username/nom-du-projet](https://github.com/votre-username/nom-du-projet) 
+Lien du projet: https://github.com/nourane-hammouda/NexusCRUD
