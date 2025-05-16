@@ -112,12 +112,123 @@ const Navigation = {
     }
 };
 
-// Fonction d'initialisation des modules
+// Module d'animations
+const Animations = {
+    init: function() {
+        // Ajouter la classe de transition à la page
+        document.body.classList.add('page-transition');
+
+        // Animation des cartes au scroll
+        const cards = document.querySelectorAll('.card');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease-out';
+            observer.observe(card);
+        });
+
+        // Gestion des alertes
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => {
+                    alert.remove();
+                }, 300);
+            }, 5000);
+        });
+
+        // Amélioration des tableaux
+        const tables = document.querySelectorAll('.table');
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                if (index > 0) { // Skip header row
+                    row.style.transition = 'background-color 0.3s ease';
+                    row.addEventListener('mouseenter', () => {
+                        row.style.backgroundColor = '#f8f9fa';
+                    });
+                    row.addEventListener('mouseleave', () => {
+                        row.style.backgroundColor = '';
+                    });
+                }
+            });
+        });
+
+        // Navigation fluide
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    window.location.href = target;
+                }, 300);
+            });
+        });
+
+        // Gestion des modales
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            const closeButton = modal.querySelector('.close');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    modal.style.opacity = '0';
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 300);
+                });
+            }
+        });
+
+        // Amélioration des boutons
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-2px)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Gestion du responsive
+        function handleResponsive() {
+            const navbar = document.querySelector('.navbar');
+            if (window.innerWidth <= 768) {
+                navbar.classList.add('mobile');
+            } else {
+                navbar.classList.remove('mobile');
+            }
+        }
+
+        window.addEventListener('resize', handleResponsive);
+        handleResponsive();
+    }
+};
+
+// Mettre à jour la fonction d'initialisation des modules
 function initModules() {
     FormValidation.validateLoginForm();
     FormValidation.validateRegisterForm();
     Search.init();
     Navigation.init();
+    Animations.init();
 }
 
 // Initialiser les modules au chargement de la page

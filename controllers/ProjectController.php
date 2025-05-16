@@ -162,11 +162,14 @@ class ProjectController {
                 'status' => $data['status']
             ]);
 
-            return true;
+            $_SESSION['success'] = 'Projet créé avec succès !';
+            header('Location: /projet/public/dashboard.php');
+            exit();
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
             $_SESSION['old_input'] = $data;
-            return false;
+            header('Location: /projet/public/projects.php?action=create');
+            exit();
         }
     }
 

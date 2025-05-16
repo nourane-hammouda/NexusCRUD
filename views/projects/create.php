@@ -131,7 +131,7 @@
     <div class="container">
         <h1 class="section-title">Nouveau Projet</h1>
         
-        <form action="/projet/public/projects.php?action=store" method="POST" class="card">
+        <form action="/projet/public/dashboard.php?action=store" method="POST" class="card">
             <!-- Informations de base du projet -->
             <div class="form-group">
                 <label for="title">Titre du projet *</label>
@@ -197,7 +197,7 @@
 
             <!-- Boutons d'action -->
             <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <a href="/projet/public/projects.php" class="btn btn-secondary">Annuler</a>
+                <a href="/projet/public/dashboard.php" class="btn btn-secondary">Annuler</a>
                 <button type="submit" class="btn btn-primary">Créer le projet</button>
             </div>
         </form>

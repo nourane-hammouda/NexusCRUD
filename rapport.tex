@@ -1,0 +1,758 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Rapport de Projet : Système de Gestion de Projets}
+\author{Votre Nom}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction du Projet}
+Ce projet s'inscrit dans le cadre de notre formation en Licence MIAGE (Méthodes Informatiques Appliquées à la Gestion des Entreprises), visant à développer nos compétences en développement web et en gestion de projets informatiques. En tant qu'étudiantes en MIAGE, ce projet nous permet de mettre en pratique les concepts théoriques appris en cours tout en développant des compétences professionnelles essentielles.
+
+\subsection{Objectifs du Projet}
+Le développement de ce système de gestion de projets répond à plusieurs objectifs pédagogiques et professionnels :
+
+\begin{itemize}
+    \item \textbf{Objectifs Pédagogiques} :
+    \begin{itemize}
+        \item Maîtriser l'architecture MVC (Modèle-Vue-Contrôleur), un paradigme fondamental en développement web moderne
+        \item Implémenter les opérations CRUD (Create, Read, Update, Delete) de manière sécurisée et optimisée
+        \item Appliquer les principes de conception de bases de données relationnelles
+        \item Développer des compétences en programmation orientée objet avec PHP
+    \end{itemize}
+
+    \item \textbf{Objectifs Professionnels} :
+    \begin{itemize}
+        \item Créer une application web complète et fonctionnelle
+        \item Gérer un projet de développement de bout en bout
+        \item Travailler avec des technologies web modernes
+        \item Développer des compétences en gestion de projet
+    \end{itemize}
+\end{itemize}
+
+\subsection{Choix Techniques}
+Le choix de l'architecture MVC et des opérations CRUD n'est pas anodin et répond à plusieurs besoins :
+
+\begin{itemize}
+    \item \textbf{Architecture MVC} :
+    \begin{itemize}
+        \item \textit{Séparation des Responsabilités} : Permet une meilleure organisation du code et facilite la maintenance
+        \item \textit{Réutilisabilité} : Les composants peuvent être réutilisés dans différentes parties de l'application
+        \item \textit{Évolutivité} : Facilite l'ajout de nouvelles fonctionnalités
+        \item \textit{Collaboration} : Permet à plusieurs développeurs de travailler sur différentes parties du projet
+    \end{itemize}
+
+    \item \textbf{Opérations CRUD} :
+    \begin{itemize}
+        \item \textit{Standardisation} : Implémente les opérations fondamentales de gestion des données
+        \item \textit{Sécurité} : Permet un contrôle précis des accès aux données
+        \item \textit{Maintenance} : Facilite la gestion et la mise à jour des données
+        \item \textit{Performance} : Optimise les interactions avec la base de données
+    \end{itemize}
+\end{itemize}
+
+\subsection{Contexte MIAGE}
+En tant qu'étudiantes en MIAGE, ce projet nous permet de :
+
+\begin{itemize}
+    \item \textbf{Compétences Techniques} :
+    \begin{itemize}
+        \item Développer des applications web professionnelles
+        \item Gérer des bases de données relationnelles
+        \item Implémenter des interfaces utilisateur modernes
+        \item Sécuriser les applications web
+    \end{itemize}
+
+    \item \textbf{Compétences Métier} :
+    \begin{itemize}
+        \item Comprendre les besoins des utilisateurs
+        \item Gérer un projet informatique
+        \item Travailler en équipe
+        \item Documenter le code et les fonctionnalités
+    \end{itemize}
+\end{itemize}
+
+Ce projet de système de gestion de projets nous permet donc de mettre en pratique l'ensemble des compétences acquises dans notre formation MIAGE, tout en développant une application concrète et professionnelle. Il représente une opportunité unique de combiner nos connaissances théoriques avec des compétences pratiques essentielles pour notre future carrière professionnelle.
+
+\section{Environnement de Travail et Bibliothèques}
+\subsection{Technologies Utilisées}
+\begin{itemize}
+    \item Backend : PHP 8.x
+    \item Base de données : MySQL
+    \item Frontend : HTML5, CSS3, JavaScript
+    \item Serveur : XAMPP
+    \item Bibliothèques JavaScript : jQuery
+\end{itemize}
+
+\subsection{Structure du Projet}
+Le projet suit une architecture MVC (Modèle-Vue-Contrôleur) avec la structure suivante :
+\begin{itemize}
+    \item \texttt{controllers/} : Contient les contrôleurs PHP
+    \item \texttt{models/} : Contient les modèles de données
+    \item \texttt{views/} : Contient les templates HTML
+    \item \texttt{public/} : Contient les fichiers accessibles publiquement
+    \item \texttt{config/} : Contient les fichiers de configuration
+\end{itemize}
+
+\section{Conception du Projet}
+\subsection{Création d'une base de données riche et structurée "Project Manager"}
+La base de données a été conçue pour assurer une gestion efficace des relations entre les différentes entités du système. Voici la structure détaillée :
+
+\begin{itemize}
+    \item \texttt{authentication} : 
+    \begin{itemize}
+        \item \texttt{user\_id} : Clé primaire auto-incrémentée
+        \item \texttt{username} : Nom d'utilisateur unique
+        \item \texttt{password} : Mot de passe haché
+        \item \texttt{role} : Rôle de l'utilisateur (admin ou employee)
+    \end{itemize}
+
+    \item \texttt{projects} :
+    \begin{itemize}
+        \item \texttt{id} : Clé primaire auto-incrémentée
+        \item \texttt{name} : Nom du projet
+        \item \texttt{description} : Description détaillée
+        \item \texttt{deadline} : Date limite du projet
+        \item \texttt{status} : État du projet (ongoing, completed, pending)
+    \end{itemize}
+
+    \item \texttt{employees} :
+    \begin{itemize}
+        \item \texttt{id} : Clé primaire auto-incrémentée
+        \item \texttt{name} : Nom complet de l'employé
+        \item \texttt{email} : Email professionnel unique
+        \item \texttt{team} : Équipe de l'employé
+    \end{itemize}
+
+    \item \texttt{assignments} :
+    \begin{itemize}
+        \item \texttt{id} : Clé primaire auto-incrémentée
+        \item \texttt{project\_id} : Clé étrangère vers projects
+        \item \texttt{employee\_id} : Clé étrangère vers employees
+    \end{itemize}
+
+    \item \texttt{tasks} :
+    \begin{itemize}
+        \item \texttt{id} : Clé primaire auto-incrémentée
+        \item \texttt{project\_id} : Clé étrangère vers projects
+        \item \texttt{title} : Titre de la tâche
+        \item \texttt{description} : Description de la tâche
+        \item \texttt{status} : État de la tâche (pending, in progress, completed)
+        \item \texttt{due\_date} : Date d'échéance
+    \end{itemize}
+
+    \item \texttt{comments\_notes} :
+    \begin{itemize}
+        \item \texttt{id} : Clé primaire auto-incrémentée
+        \item \texttt{project\_id} : Clé étrangère vers projects
+        \item \texttt{employee\_id} : Clé étrangère vers employees
+        \item \texttt{message} : Contenu du commentaire
+        \item \texttt{date} : Date et heure du commentaire
+    \end{itemize}
+
+    \item \texttt{users} :
+    \begin{itemize}
+        \item \texttt{id} : Clé primaire auto-incrémentée
+        \item \texttt{name} : Nom de l'utilisateur
+        \item \texttt{email} : Email unique
+        \item \texttt{password} : Mot de passe haché
+        \item \texttt{created\_at} : Date de création du compte
+    \end{itemize}
+
+    \item \texttt{equipes} :
+    \begin{itemize}
+        \item \texttt{id} : Clé primaire auto-incrémentée
+        \item \texttt{equipe} : Nom de l'équipe
+        \item \texttt{membres} : Liste des membres
+        \item \texttt{description} : Description de l'équipe
+        \item \texttt{taches} : Tâches assignées
+        \item \texttt{etat} : État visuel de l'équipe
+    \end{itemize}
+\end{itemize}
+
+Les relations entre les tables sont gérées par des clés étrangères avec contraintes d'intégrité référentielle (ON DELETE CASCADE), assurant ainsi la cohérence des données. Cette structure permet une gestion efficace des projets, des tâches, des employés et des équipes, tout en maintenant les relations nécessaires entre ces différentes entités.
+
+\subsection{Gestion de l'authentification}
+Le système d'authentification a été conçu avec un focus particulier sur la sécurité et l'expérience utilisateur :
+
+\begin{itemize}
+    \item \textbf{Sécurité des mots de passe} :
+    \begin{itemize}
+        \item Utilisation de la fonction \texttt{password\_hash()} de PHP avec l'algorithme BCRYPT
+        \item Vérification sécurisée via \texttt{password\_verify()}
+        \item Stockage des mots de passe hachés dans la base de données
+        \item Validation des entrées utilisateur pour prévenir les injections
+    \end{itemize}
+
+    \item \textbf{Gestion des sessions} :
+    \begin{itemize}
+        \item Initialisation sécurisée avec \texttt{session\_start()}
+        \item Stockage des informations utilisateur essentielles :
+        \begin{itemize}
+            \item \texttt{user\_id} : Identifiant unique de l'utilisateur
+            \item \texttt{user\_name} : Nom de l'utilisateur
+            \item \texttt{user\_email} : Email de l'utilisateur
+        \end{itemize}
+        \item Gestion des messages de succès et d'erreur
+        \item Redirection automatique vers le tableau de bord après connexion
+    \end{itemize}
+
+    \item \textbf{Validation des formulaires} :
+    \begin{itemize}
+        \item Validation côté client avec JavaScript :
+        \begin{itemize}
+            \item Vérification des champs obligatoires
+            \item Validation du format d'email
+            \item Prévention de la soumission de formulaires invalides
+        \end{itemize}
+        \item Validation côté serveur avec PHP :
+        \begin{itemize}
+            \item Vérification de l'existence de l'utilisateur
+            \item Validation des identifiants
+            \item Protection contre les attaques par force brute
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Interface utilisateur} :
+    \begin{itemize}
+        \item Formulaires de connexion et d'inscription intuitifs
+        \item Messages d'erreur contextuels et explicites
+        \item Conservation des données saisies en cas d'erreur
+        \item Navigation fluide entre les pages d'authentification
+    \end{itemize}
+
+    \item \textbf{Fonctionnalités d'inscription} :
+    \begin{itemize}
+        \item Génération automatique du nom à partir de l'email
+        \item Validation du format d'email
+        \item Vérification de l'unicité de l'email
+        \item Connexion automatique après inscription réussie
+    \end{itemize}
+
+    \item \textbf{Sécurité supplémentaire} :
+    \begin{itemize}
+        \item Protection contre les attaques XSS avec \texttt{htmlspecialchars()}
+        \item Validation des emails avec \texttt{filter\_var()}
+        \item Gestion des erreurs avec try/catch
+        \item Redirection sécurisée après les actions
+    \end{itemize}
+\end{itemize}
+
+Cette implémentation assure une authentification robuste tout en offrant une expérience utilisateur fluide et intuitive. Le système est conçu pour être à la fois sécurisé et facile à utiliser, avec une attention particulière portée à la validation des données et à la gestion des erreurs.
+
+\subsection{Création du modèle (Back-end en PHP)}
+L'architecture MVC a été implémentée avec une attention particulière à la séparation des responsabilités :
+
+\begin{itemize}
+    \item \textbf{Contrôleurs} :
+    \begin{itemize}
+        \item \texttt{ProjectController} : Gestion complète des projets
+        \begin{itemize}
+            \item Création, modification, suppression de projets
+            \item Gestion des tâches associées
+            \item Suivi des employés assignés
+            \item Gestion des commentaires
+        \end{itemize}
+        \item \texttt{UserController} : Gestion des utilisateurs et authentification
+        \begin{itemize}
+            \item Inscription et connexion
+            \item Gestion des profils
+            \item Validation des données
+            \item Gestion des sessions
+        \end{itemize}
+        \item \texttt{EmployeeController} : Gestion des employés
+        \begin{itemize}
+            \item Ajout et modification d'employés
+            \item Gestion des équipes
+            \item Assignation aux projets
+        \end{itemize}
+        \item \texttt{TaskController} : Gestion des tâches
+        \begin{itemize}
+            \item Création et suivi des tâches
+            \item Assignation aux employés
+            \item Suivi de l'avancement
+        \end{itemize}
+        \item \texttt{TeamController} : Gestion des équipes
+        \begin{itemize}
+            \item Création et gestion des équipes
+            \item Assignation des membres
+            \item Suivi des performances
+        \end{itemize}
+        \item \texttt{CommentNoteController} : Gestion des commentaires
+        \begin{itemize}
+            \item Ajout de commentaires aux projets
+            \item Suivi des notes
+            \item Historique des modifications
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Modèles} :
+    \begin{itemize}
+        \item \texttt{Project} : Modèle de données pour les projets
+        \begin{itemize}
+            \item Gestion des relations avec les tâches
+            \item Suivi des employés assignés
+            \item Gestion des dates et statuts
+        \end{itemize}
+        \item \texttt{User} : Modèle de données pour les utilisateurs
+        \begin{itemize}
+            \item Gestion des authentifications
+            \item Validation des données
+            \item Gestion des profils
+        \end{itemize}
+        \item \texttt{Employee} : Modèle de données pour les employés
+        \begin{itemize}
+            \item Gestion des informations personnelles
+            \item Suivi des assignations
+            \item Gestion des équipes
+        \end{itemize}
+        \item \texttt{Task} : Modèle de données pour les tâches
+        \begin{itemize}
+            \item Suivi de l'avancement
+            \item Gestion des priorités
+            \item Liaison avec les projets
+        \end{itemize}
+        \item \texttt{Team} : Modèle de données pour les équipes
+        \begin{itemize}
+            \item Gestion des membres
+            \item Suivi des performances
+            \item Organisation des projets
+        \end{itemize}
+        \item \texttt{CommentNotes} : Modèle de données pour les commentaires
+        \begin{itemize}
+            \item Gestion des notes
+            \item Historique des modifications
+            \item Liaison avec les projets
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Vues} :
+    \begin{itemize}
+        \item \texttt{layouts/} : Templates de base
+        \begin{itemize}
+            \item Structure HTML commune
+            \item En-têtes et pieds de page
+            \item Navigation principale
+        \end{itemize}
+        \item \texttt{auth/} : Pages d'authentification
+        \begin{itemize}
+            \item Formulaire de connexion
+            \item Formulaire d'inscription
+            \item Messages d'erreur
+        \end{itemize}
+        \item \texttt{projects/} : Gestion des projets
+        \begin{itemize}
+            \item Liste des projets
+            \item Formulaire de création
+            \item Détails du projet
+        \end{itemize}
+        \item \texttt{tasks/} : Gestion des tâches
+        \begin{itemize}
+            \item Liste des tâches
+            \item Formulaire de création
+            \item Suivi de l'avancement
+        \end{itemize}
+        \item \texttt{employees/} : Gestion des employés
+        \begin{itemize}
+            \item Liste des employés
+            \item Profils détaillés
+            \item Gestion des équipes
+        \end{itemize}
+        \item \texttt{teams/} : Gestion des équipes
+        \begin{itemize}
+            \item Vue d'ensemble des équipes
+            \item Détails des membres
+            \item Suivi des performances
+        \end{itemize}
+        \item \texttt{comments\_notes/} : Gestion des commentaires
+        \begin{itemize}
+            \item Affichage des notes
+            \item Formulaire d'ajout
+            \item Historique des modifications
+        \end{itemize}
+        \item \texttt{errors/} : Pages d'erreur
+        \begin{itemize}
+            \item Messages d'erreur personnalisés
+            \item Redirection appropriée
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+Cette architecture MVC permet une séparation claire des responsabilités et facilite la maintenance du code. Chaque composant a un rôle bien défini :
+\begin{itemize}
+    \item Les \textbf{contrôleurs} gèrent la logique métier et les interactions
+    \item Les \textbf{modèles} gèrent l'accès aux données et les règles métier
+    \item Les \textbf{vues} gèrent l'affichage et l'interaction avec l'utilisateur
+\end{itemize}
+
+Cette structure modulaire permet également une évolution facile du système et l'ajout de nouvelles fonctionnalités sans affecter les composants existants.
+
+\subsection{Développement de l'interface utilisateur (Front-end en HTML, CSS, JS)}
+L'interface utilisateur a été conçue pour offrir une expérience utilisateur optimale :
+
+\begin{itemize}
+    \item \textbf{Architecture Front-end} :
+    \begin{itemize}
+        \item Structure HTML5 sémantique
+        \item CSS3 avec variables personnalisées
+        \item JavaScript modulaire
+        \item Responsive design avec media queries
+    \end{itemize}
+
+    \item \textbf{Tableau de bord} :
+    \begin{itemize}
+        \item Vue d'ensemble des projets en cours
+        \item Statistiques en temps réel
+        \item Graphiques interactifs avec Chart.js
+        \item Filtres dynamiques par statut et date
+        \item Vue calendrier des échéances
+    \end{itemize}
+
+    \item \textbf{Formulaires} :
+    \begin{itemize}
+        \item Validation en temps réel avec JavaScript
+        \item Messages d'erreur contextuels
+        \item Auto-complétion pour les champs de recherche
+        \item Upload de fichiers avec prévisualisation
+        \item Sélection de dates avec datepicker
+        \item Champs de texte enrichis (éditeur WYSIWYG)
+    \end{itemize}
+
+    \item \textbf{Listes et tableaux} :
+    \begin{itemize}
+        \item Pagination dynamique avec AJAX
+        \item Tri multi-colonnes
+        \item Recherche instantanée
+        \item Actions en masse (sélection multiple)
+        \item Export des données (CSV, PDF)
+        \item Filtres avancés
+    \end{itemize}
+
+    \item \textbf{Composants interactifs} :
+    \begin{itemize}
+        \item Modales pour les actions importantes
+        \item Tooltips informatifs
+        \item Menus déroulants contextuels
+        \item Drag-and-drop pour la réorganisation
+        \item Notifications en temps réel
+        \item Barre de progression pour les tâches
+    \end{itemize}
+
+    \item \textbf{Responsive Design} :
+    \begin{itemize}
+        \item Adaptation mobile-first
+        \item Grille flexible avec Flexbox/Grid
+        \item Images responsives
+        \item Menus adaptatifs
+        \item Optimisation des formulaires mobiles
+    \end{itemize}
+
+    \item \textbf{Performance} :
+    \begin{itemize}
+        \item Chargement asynchrone des ressources
+        \item Minification des fichiers CSS/JS
+        \item Optimisation des images
+        \item Mise en cache du navigateur
+        \item Lazy loading des composants
+    \end{itemize}
+
+    \item \textbf{Accessibilité} :
+    \begin{itemize}
+        \item Support des lecteurs d'écran
+        \item Navigation au clavier
+        \item Contraste des couleurs
+        \item Textes alternatifs
+        \item Structure sémantique
+    \end{itemize}
+
+    \item \textbf{Intégration} :
+    \begin{itemize}
+        \item Communication AJAX avec le backend
+        \item Gestion des erreurs réseau
+        \item États de chargement
+        \item Synchronisation des données
+        \item Gestion des sessions
+    \end{itemize}
+\end{itemize}
+
+Cette interface utilisateur moderne et intuitive permet une gestion efficace des projets tout en offrant une expérience utilisateur fluide et agréable. L'utilisation des technologies web modernes assure une performance optimale et une maintenance facilitée.
+
+\section{Évaluation du Projet et Difficultés Rencontrées}
+\subsection{Points Forts}
+\begin{itemize}
+    \item \textbf{Architecture MVC} :
+    \begin{itemize}
+        \item Code modulaire et maintenable
+        \item Séparation claire des responsabilités
+        \item Facilité d'extension et d'évolution
+        \item Réutilisation optimale du code
+        \item Organisation claire des fichiers
+    \end{itemize}
+
+    \item \textbf{Sécurité} :
+    \begin{itemize}
+        \item Protection contre les injections SQL avec requêtes préparées
+        \item Gestion sécurisée des sessions avec régénération d'ID
+        \item Validation rigoureuse des entrées utilisateur
+        \item Protection CSRF sur tous les formulaires
+        \item Hachage sécurisé des mots de passe avec BCRYPT
+        \item Échappement des données avec htmlspecialchars()
+    \end{itemize}
+
+    \item \textbf{Base de données} :
+    \begin{itemize}
+        \item Structure relationnelle optimisée
+        \item Clés étrangères avec contraintes d'intégrité
+        \item Indexation appropriée des champs fréquemment utilisés
+        \item Normalisation des données
+        \item Gestion efficace des relations entre tables
+    \end{itemize}
+
+    \item \textbf{Interface utilisateur} :
+    \begin{itemize}
+        \item Design moderne et professionnel
+        \item Interface intuitive et responsive
+        \item Retours visuels immédiats sur les actions
+        \item Navigation fluide et logique
+        \item Composants interactifs et dynamiques
+        \item Adaptation mobile optimale
+    \end{itemize}
+
+    \item \textbf{Fonctionnalités} :
+    \begin{itemize}
+        \item Gestion complète des projets et tâches
+        \item Système d'authentification robuste
+        \item Gestion des équipes et des employés
+        \item Suivi en temps réel des modifications
+        \item Système de commentaires et notes
+        \item Export et import de données
+    \end{itemize}
+
+    \item \textbf{Performance} :
+    \begin{itemize}
+        \item Requêtes SQL optimisées
+        \item Mise en cache des données fréquentes
+        \item Chargement asynchrone des ressources
+        \item Minification des assets
+        \item Gestion efficace de la mémoire
+    \end{itemize}
+\end{itemize}
+
+\subsection{Difficultés Rencontrées}
+\begin{itemize}
+    \item \textbf{Gestion des mises à jour en temps réel} :
+    \begin{itemize}
+        \item Synchronisation des données entre utilisateurs
+        \item Gestion des conflits de modification
+        \item Performance des requêtes AJAX fréquentes
+        \item Maintien de la cohérence des données
+        \item Gestion des timeouts et des erreurs réseau
+    \end{itemize}
+
+    \item \textbf{Optimisation des requêtes SQL} :
+    \begin{itemize}
+        \item Jointures complexes avec plusieurs tables
+        \item Gestion des index pour les performances
+        \item Optimisation des requêtes avec sous-requêtes
+        \item Mise en cache des résultats fréquents
+        \item Gestion des requêtes N+1
+    \end{itemize}
+
+    \item \textbf{Sécurité et authentification} :
+    \begin{itemize}
+        \item Protection contre les attaques XSS
+        \item Gestion des sessions concurrentes
+        \item Validation des permissions
+        \item Sécurisation des API
+        \item Gestion des tokens CSRF
+        \item Protection contre les attaques par force brute
+    \end{itemize}
+
+    \item \textbf{Interface utilisateur} :
+    \begin{itemize}
+        \item Compatibilité cross-browser
+        \item Gestion des états de chargement
+        \item Feedback utilisateur en temps réel
+        \item Adaptation mobile
+        \item Gestion des formulaires complexes
+        \item Validation côté client et serveur
+    \end{itemize}
+
+    \item \textbf{Gestion des erreurs} :
+    \begin{itemize}
+        \item Logging approprié des erreurs
+        \item Messages d'erreur utilisateur
+        \item Gestion des exceptions
+        \item Récupération après erreur
+        \item Maintenance des logs
+    \end{itemize}
+
+    \item \textbf{Documentation} :
+    \begin{itemize}
+        \item Documentation technique du code
+        \item Guide d'utilisation
+        \item Documentation API
+        \item Maintenance de la documentation
+        \item Versioning de la documentation
+    \end{itemize}
+\end{itemize}
+
+\subsection{Solutions Apportées}
+\begin{itemize}
+    \item \textbf{Pour les mises à jour en temps réel} :
+    \begin{itemize}
+        \item Implémentation d'un système de versioning
+        \item Utilisation de WebSockets pour les mises à jour
+        \item Mise en place d'un système de file d'attente
+        \item Optimisation des requêtes AJAX
+    \end{itemize}
+
+    \item \textbf{Pour l'optimisation SQL} :
+    \begin{itemize}
+        \item Création d'index appropriés
+        \item Mise en place de requêtes préparées
+        \item Utilisation de vues pour les requêtes complexes
+        \item Implémentation d'un système de cache
+    \end{itemize}
+
+    \item \textbf{Pour la sécurité} :
+    \begin{itemize}
+        \item Mise en place de tokens CSRF
+        \item Implémentation de rate limiting
+        \item Validation stricte des entrées
+        \item Utilisation de prepared statements
+    \end{itemize}
+
+    \item \textbf{Pour l'interface utilisateur} :
+    \begin{itemize}
+        \item Utilisation de frameworks CSS modernes
+        \item Implémentation de fallbacks
+        \item Tests cross-browser
+        \item Optimisation des assets
+    \end{itemize}
+\end{itemize}
+
+\section{Conclusion et Bilan}
+Le projet de système de gestion de projets a été une expérience enrichissante qui a permis de mettre en pratique les compétences acquises dans notre formation MIAGE. Ce développement a abouti à une application web complète et professionnelle, répondant aux besoins initiaux tout en offrant des fonctionnalités avancées.
+
+\subsection{Réalisations Techniques}
+\begin{itemize}
+    \item \textbf{Architecture et Structure} :
+    \begin{itemize}
+        \item Implémentation réussie de l'architecture MVC
+        \item Organisation modulaire et maintenable du code
+        \item Séparation claire des responsabilités
+        \item Structure de base de données optimisée
+    \end{itemize}
+
+    \item \textbf{Fonctionnalités Développées} :
+    \begin{itemize}
+        \item Système d'authentification sécurisé
+        \item Gestion complète des projets et tâches
+        \item Suivi des équipes et des employés
+        \item Interface utilisateur intuitive et responsive
+    \end{itemize}
+\end{itemize}
+
+\subsection{Objectifs Atteints}
+\begin{itemize}
+    \item \textbf{Objectifs Pédagogiques} :
+    \begin{itemize}
+        \item Maîtrise de l'architecture MVC
+        \item Application des concepts de bases de données
+        \item Développement d'applications web sécurisées
+    \end{itemize}
+
+    \item \textbf{Objectifs Professionnels} :
+    \begin{itemize}
+        \item Création d'une application complète
+        \item Gestion des contraintes techniques
+        \item Respect des délais et des spécifications
+    \end{itemize}
+\end{itemize}
+
+\subsection{Compétences Développées}
+\begin{itemize}
+    \item \textbf{Compétences Techniques} :
+    \begin{itemize}
+        \item Développement PHP avancé
+        \item Gestion de bases de données MySQL
+        \item Programmation orientée objet
+    \end{itemize}
+
+    \item \textbf{Compétences Métier} :
+    \begin{itemize}
+        \item Gestion de projet
+        \item Analyse des besoins
+        \item Documentation technique
+    \end{itemize}
+\end{itemize}
+
+\subsection{Perspectives d'Évolution}
+Le système offre plusieurs possibilités d'évolution :
+\begin{itemize}
+    \item Intégration d'API REST
+    \item Amélioration des performances
+    \item Tableau de bord personnalisable
+    \item Rapports et analyses avancés
+\end{itemize}
+
+\subsection{Bilan Global}
+Ce projet a permis de développer un système de gestion de projets complet et fonctionnel. Les objectifs pédagogiques et professionnels ont été atteints, avec une architecture robuste et une interface utilisateur intuitive. L'expérience acquise a été particulièrement enrichissante, permettant de mettre en pratique les connaissances théoriques dans un contexte professionnel.
+
+Les compétences développées, tant techniques que méthodologiques, seront précieuses pour notre future carrière professionnelle dans le domaine du développement web et de la gestion de projets informatiques.
+
+\section{Exemple d'Exécution}
+\subsection{Installation}
+\begin{enumerate}
+    \item Installer XAMPP
+    \item Cloner le projet dans le dossier htdocs
+    \item Configurer la base de données
+    \item Lancer le serveur Apache et MySQL
+\end{enumerate}
+
+\subsection{Utilisation}
+\begin{enumerate}
+    \item Se connecter avec un compte utilisateur
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{assets/images/login.png}
+        \caption{Page de connexion}
+    \end{figure}
+
+    \item Accéder au tableau de bord
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{assets/images/dashboard.png}
+        \caption{Vue du tableau de bord}
+    \end{figure}
+
+    \item Créer et gérer des projets
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{assets/images/projects.png}
+        \caption{Interface de gestion des projets}
+    \end{figure}
+
+    \item Assigner des tâches et des employés
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{assets/images/tasks.png}
+        \caption{Gestion des tâches et des employés}
+    \end{figure}
+\end{enumerate}
+
+\end{document} 

@@ -119,17 +119,17 @@ if (!isset($_SESSION['user_id'])) {
         <div class="stats-container">
             <div class="stat-card">
                 <h3>Projets</h3>
-                <div class="stat-number"><?= is_array($projects) ? count($projects) : 0 ?></div>
+                <div class="stat-number" id="projects-count"><?= is_array($projects) ? count($projects) : 0 ?></div>
                 <a href="/projet/public/projects.php">Voir tous les projets</a>
             </div>
             <div class="stat-card">
                 <h3>Tâches</h3>
-                <div class="stat-number"><?= is_array($tasks) ? count($tasks) : 0 ?></div>
+                <div class="stat-number" id="tasks-count"><?= is_array($tasks) ? count($tasks) : 0 ?></div>
                 <a href="/projet/public/tasks.php">Voir toutes les tâches</a>
             </div>
             <div class="stat-card">
                 <h3>Employés</h3>
-                <div class="stat-number"><?= is_array($users) ? count($users) : 0 ?></div>
+                <div class="stat-number" id="users-count"><?= is_array($users) ? count($users) : 0 ?></div>
                 <a href="/projet/public/employees.php">Voir tous les employés</a>
             </div>
         </div>
@@ -166,5 +166,42 @@ if (!isset($_SESSION['user_id'])) {
             <?php endif; ?>
         </div>
     </div>
+
+    <script>
+    // Fonction pour mettre à jour les statistiques
+    function updateStats() {
+        // Mettre à jour les projets
+        fetch('/projet/public/get_projects.php')
+            .then(response => response.json())
+            .then(projects => {
+                document.getElementById('projects-count').textContent = projects.length;
+            })
+            .catch(error => console.error('Erreur lors de la mise à jour des projets:', error));
+
+        // Mettre à jour les tâches
+        fetch('/projet/public/get_tasks.php')
+            .then(response => response.json())
+            .then(tasks => {
+                document.getElementById('tasks-count').textContent = tasks.length;
+            })
+            .catch(error => console.error('Erreur lors de la mise à jour des tâches:', error));
+
+        // Mettre à jour les employés
+        fetch('/projet/public/get_users.php')
+            .then(response => response.json())
+            .then(users => {
+                document.getElementById('users-count').textContent = users.length;
+            })
+            .catch(error => console.error('Erreur lors de la mise à jour des employés:', error));
+    }
+
+    // Mettre à jour les statistiques toutes les 5 secondes
+    setInterval(updateStats, 5000);
+
+    // Mettre à jour les statistiques immédiatement après l'ajout d'un projet
+    if (window.location.href.includes('action=store')) {
+        updateStats();
+    }
+    </script>
 </body>
 </html> 
