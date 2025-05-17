@@ -61,7 +61,11 @@ composer install
 │   └── images/       # Images
 ├── .gitignore         # Fichiers ignorés par Git
 ├── README.md          # Documentation
-└── db.sql            # Structure de la base de données
+├──db.sql            # Structure de la base de données
+├── index.html         # Page d'acceuil
+├── Creer_nv_projet.html # Page contenant les tableaux de bords
+├── profil.html       # Page de profil
+└── style.css        # style css de toutes les pages
 ```
 
 ## Utilisation
@@ -93,5 +97,6 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 ## Contact
 
 Nourane HAMMOUDA - nouranehamouda09@gmail@.com
+Sow Penda- 43000120@parisnanterre.fr
 
 Lien du projet: https://github.com/nourane-hammouda/NexusCRUD
