@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" lang="fr">
+        <link rel="stylesheet" href="style.css">
+        <?php include 'save.php'?>
+        <?php include 'list.php'?>
+    </head>
+
+    <body>
+        <h1> Tableaux </h1>
+        <a onclick="ouvrir()" class="ouv">&#9776;menu</a>
+        <nav id="nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="javascript:void(0)" onclick="fermer()" class="fermer">&times;</a></li> <!--javascrip:void(0) permet de ne pas avoir un rechargement de page, et &.. c'est x pour fermerla page web -->
+                <li><a href="profil.html">Mon Profil</a></li>                    
+                <li><a href="Creer_nv_projet.html">Creer un tableau de bord</a></li>
+                <li><a href="Creer_nv_projet.html">Mes tableaux de bord</a></li>
+                <li><a href="#">equipes</a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            <button onclick="handleclick()" onclick="action2()" class="click" id="click"> Creer un nouveau tableau </button>
+            <button onclick="send_bd()" class="send"> Acceder à mes tableaux </button>
+        </div>
+        <form class="f" id="f1" method="POST" ></form>
+        <script>
+            function sv(){
+                let form=document.getElementById("f1");
+                for(element of form.elements){
+                    if (element.value.trim()==""){
+                        alert("le tableau est vide");
+                        return false;
+                    }
+                }
+                alert("le tableau a ete sauvegarde !");
+                return true;
+            }
+            function handleclick(){
+                action1();
+            }
+            function action1(){
+                let f=document.getElementById("f1"); // creation
+                let tab=document.createElement('table');
+                tab.id="t";
+                let tr1=document.createElement('tr');
+                let tr2=document.createElement('tr');
+                tr1.innerHTML='<th> Equipe </th><th> Membres </th><th> Description </th><th> Taches </th><th> Etat </th>';
+                tr2.innerHTML='<td><label for="equipe"></label><input type=text name="Equipe"></td><td><label for="membres"></label><input type=text name=Membres></td><td><label for="description"></label><input class="d" type=text name=Descritption></td><td><label for="taches"></label><input class="t" type=text name=Taches></td><td><label for="etat"></label><select name="etat" id="etat" class="etat" onchange="color()"><option value="Terminee">Terminee</option><option value="En cours">En cours</option><option value="A commencer">A commencer</option><option value="En retard">En retard</option></select></td>';
+                let c=document.createElement('div');
+                c.innerHTML='<button onclick=nv_ligne()>creer une ligne</button><button onclick=supp_ligne()> supprimer une ligne </button><button onclick="sv()">Sauvegarder le tableau</button>';
+                tab.appendChild(tr1);
+                tab.appendChild(tr2);
+                f.appendChild(tab);
+                document.body.appendChild(c);
+
+
+            }
+
+            function color(){
+                let v=document.getElementById("etat");
+                if(v.value=="Terminee"){
+                    v.style.backgroundColor="green";
+                }
+                else if(v.value=="En cours"){
+                    v.style.backgroundColor="yellow";
+                }
+                else if(v.value=="A commencer"){
+                    v.style.backgroundColor="blue";
+                }
+                else if(v.value=="En retard"){
+                    v.style.backgroundColor="orange";
+                }
+                else{
+                    v.style.backgroundColor="white";
+                }
+            }
+
+            function action2(){
+                let btn=document.getElementById("click");
+                if(btn){
+                    document.body.remove(btn);
+                }
+            }
+            function mes_tab(){
+                const sauv_tab=document.getElementById("save_tab");
+                donnees.fetch(donnee=> {
+                    const row =document.createElement('tr');
+                    row.innerHTML='<td>{donnee.equipe}equpie</td><td>{donnee.membre}membre</td><td>{donnee.description}description</td><td>{donnee.taches}taches</td><td>{donnee.etat}etat</td>'; 
+                    sauv_tab.appendChild(row);
+                }); //recuperation des donnes du tableau en php pour les afficher
+            }
+            function ouvrir(){
+                document.getElementById("nav").style.left="0px";
+            }
+            function fermer(){
+                document.getElementById("nav").style.left = "-290px";
+            }
+            function supp_ligne(){
+                document.getElementById("popup").style.display="flex";
+            }
+            function confirmation(){
+                let tab=document.getElementById("t");
+                let cpt=tab.rows.length;
+                let ligne_supp=tab.deleteRow(cpt-1);
+                document.getElementById("popup").style.display = "none";
+            }
+            function nv_ligne(){
+                let tableau=document.getElementById("t");
+                let ligne=document.createElement('tr');
+                ligne.classList.add('anim');
+                ligne.innerHTML='<td><label for="equipe"></label><input type=text name="Equipe"></td><td><label for="membres"></label><input type=text name=Membres></td><td><label for="description"></label><input class="d" type=text name=Descritption></td><td><label for="taches"></label><input class="t" type=text name=Taches></td><td><label for="etat"></label><select name="etat" id="etat" class="etat" onchange="color()"><option value="Terminee">Terminee</option><option value="En cours">En cours</option><option value="A commencer">A commencer</option><option value="En retard">En retard</option></select></td>';
+                t.appendChild(ligne);
+            }
+            function send_bd(){
+                
+                /*let tableau=document.createElement('table');
+                let tr3=document.createElement('tr');
+                let tr4=document.createElement('tr');
+                tr3.innerHTML='<th> Equipe </th><th> Membres </th><th> Description </th><th> Taches </th><th> Etat </th>';
+                const obj= new XMLHttpRequest();
+                obj.open("GET",l'url_du_serveur);
+                obj.send();
+                obj.responseType="sql";
+                obj.onload= () =>{
+                    if(obj.readyState==4 && obj.status==200){
+                        const data=obj.response;
+                        tr4.innerHTML='<td>data<\td>';
+                    }
+                }      //ecouteur d'event
+                }*/
+            }
+            function cancelSuppression() {
+            // Cacher le popup sans supprimer la ligne
+            document.getElementById("popup").style.display = "none";
+            }
+        </script>
+         <div id="popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <p>Êtes-vous sûr de vouloir supprimer cette ligne ?</p>
+                <button id="confirm" onclick="confirmation()">Oui</button>
+                <button id="cancel" onclick="cancelSuppression()">Non</button>
+            </div>
+        </div>
+    </body>
+</html>

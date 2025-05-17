@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <title> Gestion de projet </title>
+        <?php include 'config.php' ?>
+    </head>
+    <body>
+        <h2> Bienvenue sur le site de gestion de projet </h2>
+        <div class="cadre">   
+            <div class="cadre1" id="d1">
+                <h3> Connexion</h3>
+                <form id="fc" method="POST" onsubmit="return validation1()" action="Creer_nv_projet.html">
+                    <label for="email">email</label>
+                    <input type=email name=email placeholder="abcd@gmail.com">
+                    <label for="password" name="mot de passe">mot de passe</label>
+                    <input type="password" name="mot de passe">
+                    <input type="submit" value="Se connecter">
+                </form>
+            </div>
+            <div class="cadre2" id="d2">
+                <h3>Inscription </h3>
+                <form method="POST" id="fi" onsubmit="return validation2()" action="Creer_nv_projet.html">
+                    <label for="nom">nom</label>
+                    <input type=text name=nom placeholder="Miria">
+                    <label for="email">email</label>
+                    <input type=email name=email placeholder="abcd@gmail.com">
+                    <label for="equipe">equipe:</label>
+                    <input type=text name=equipe>
+                    <label for="password" name="mot de passe">mot de passe</label>
+                    <input type="password" name="mot de passe">
+                    <input type="submit" value="Creer un compte">
+                </form>   
+            </div>
+        </div>
+        <script>
+            function validation1(){
+                let form=document.getElementById("fc");
+                for (let element of form.elements){
+                    if (element.value.trim() ==""){
+                        alert("Tous les champs ne sont pas remplis");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            function validation2(){
+                let form=document.getElementById("fi");
+                for (let element of form.elements){
+                    if (element.value.trim() ==""){
+                        alert("Tous les champs ne sont pas remplis");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            function ouvrir(){
+                document.getElementById("nav").style.left = "0px";
+            }
+            function fermer(){
+                document.getElementById("nav").style.left = "-280px";
+            }
+        </script>
+    </body>
+</html>
